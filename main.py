@@ -105,7 +105,7 @@ if __name__ == '__main__':
         #print(type(dfCurrency))
 
 
-
+    print("done")
     print(dfCurrency.head(5))
     print(dfCurrency.describe())
     print("------")
