@@ -1,8 +1,6 @@
 
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
-# Zainstaluj requests
-# pip install requests
+
 import requests
 import json
 from requests.exceptions import HTTPError
@@ -43,10 +41,27 @@ def get_data_range_of_currency(currency, start_date,end_date):
             return json.dumps(response.json(), indent=4, sort_keys=True)
 
 
+def get_data_range_of_GOLD(start_date,end_date):
+    try:
+        url= f'http://api.nbp.pl/api/' \
+             f'cenyzlota/' \
+             f'{start_date}/' \
+             f'{end_date}' \
+             f'?format=json'
+        response = requests.get(url)
+        #print(url)
+    except HTTPError as http_error:
+        print(f'HTTP error: {http_error}')
+    except Exception as e:
+        print(f'Other exception: {e}')
+    else:
+        if response.status_code == 200:
+            return json.dumps(response.json(), indent=4, sort_keys=True)
 
 
 if __name__ == '__main__':
     dfCurrency = pd.DataFrame(columns=['effectiveDate', 'mid', 'no','code'])
+    dfGOLD=pd.DataFrame(columns=['cena','data'])
     currencySET = ['USD','GBP','EUR','CHF']
     DataSET=[['2020-01-01','2020-12-31'],['2021-01-01','2021-12-31']]
     print(DataSET)
@@ -55,6 +70,13 @@ if __name__ == '__main__':
     #end = '2021-12-31'
 
     for start, end in DataSET:
+        jsonGOLD=json.loads(get_data_range_of_GOLD(start, end))
+        for dGOLD in jsonGOLD:
+            dictGOLD=dict(dGOLD)
+            #print(dictGOLD)
+            tmpGOLD=pd.DataFrame.from_dict(dictGOLD,orient='index')
+            tmpGOLD=tmpGOLD.transpose()
+            dfGOLD=pd.concat([dfGOLD,tmpGOLD])
 
         for currency in currencySET:
             jsonNBP=json.loads(get_data_range_of_currency(currency, start, end))
@@ -90,7 +112,7 @@ if __name__ == '__main__':
     print("------")
     print(dfCurrency['mid'].dtypes)
     print(dfCurrency)
-
+    print(dfGOLD)
     # print(dfa.columns)
     # print(dfa.code)
     # print(dfa.rates)
