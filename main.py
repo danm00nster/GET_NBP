@@ -63,13 +63,12 @@ if __name__ == '__main__':
     dfCurrency = pd.DataFrame(columns=['effectiveDate', 'mid', 'no','code'])
     dfGOLD=pd.DataFrame(columns=['data','cena'])
     currencySET = ['USD','GBP','EUR','CHF']
-    DataSET=[['2020-01-01','2020-12-31'],['2021-01-01','2021-12-31']]
+    DataSET=[['2018-01-01','2018-12-31'],['2019-01-01','2019-12-31'],['2020-01-01','2020-12-31'],['2021-01-01','2021-12-31']]
     print(DataSET)
     arates_number = 3
-    #start = '2021-01-01'
-    #end = '2021-12-31'
 
     for start, end in DataSET:
+        print('dekodowanie' , start, end, 'GOLD')
         jsonGOLD=json.loads(get_data_range_of_GOLD(start, end))
         for dGOLD in jsonGOLD:
             dictGOLD=dict(dGOLD)
