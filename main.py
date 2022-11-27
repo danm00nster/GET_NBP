@@ -6,7 +6,6 @@
 import requests
 import json
 from requests.exceptions import HTTPError
-import xml.etree.ElementTree as ET
 import pandas as pd
 
 def get_rates_of_currency(currency, rates_number):
