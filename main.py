@@ -1,27 +1,7 @@
-
-
-
 import requests
 import json
 from requests.exceptions import HTTPError
 import pandas as pd
-
-def get_rates_of_currency(currency, rates_number):
-    try:
-        url = f'http://api.nbp.pl/api/' \
-              f'exchangerates/rates/a/' \
-              f'{currency}/' \
-              f'last/{rates_number}/' \
-              f'?format=json'
-        response = requests.get(url)
-    except HTTPError as http_error:
-        print(f'HTTP error: {http_error}')
-    except Exception as e:
-        print(f'Other exception: {e}')
-    else:
-        if response.status_code == 200:
-            return json.dumps(response.json(), indent=4, sort_keys=True)
-
 def get_data_range_of_currency(currency, start_date,end_date):
     try:
         url= f'http://api.nbp.pl/api/' \
@@ -40,7 +20,6 @@ def get_data_range_of_currency(currency, start_date,end_date):
         if response.status_code == 200:
             return json.dumps(response.json(), indent=4, sort_keys=True)
 
-
 def get_data_range_of_GOLD(start_date,end_date):
     try:
         url= f'http://api.nbp.pl/api/' \
@@ -58,12 +37,15 @@ def get_data_range_of_GOLD(start_date,end_date):
         if response.status_code == 200:
             return json.dumps(response.json(), indent=4, sort_keys=True)
 
-
 if __name__ == '__main__':
     dfCurrency = pd.DataFrame(columns=['effectiveDate', 'mid', 'no','code'])
     dfGOLD=pd.DataFrame(columns=['data','cena'])
     currencySET = ['USD','GBP','EUR','CHF']
-    DataSET=[['2018-01-01','2018-12-31'],['2019-01-01','2019-12-31'],['2020-01-01','2020-12-31'],['2021-01-01','2021-12-31']]
+    DataSET=[['2018-01-01','2018-12-31'],
+             ['2019-01-01','2019-12-31'],
+             ['2020-01-01','2020-12-31'],
+             ['2021-01-01','2021-12-31'],
+             ['2022-01-01','2022-12-05']]
     print(DataSET)
     arates_number = 3
 
