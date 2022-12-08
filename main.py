@@ -54,21 +54,14 @@ if __name__ == '__main__':
         jsonGOLD=json.loads(get_data_range_of_GOLD(start, end))
         for dGOLD in jsonGOLD:
             dictGOLD=dict(dGOLD)
-            #print(dictGOLD)
             tmpGOLD=pd.DataFrame.from_dict(dictGOLD,orient='index')
             tmpGOLD=tmpGOLD.transpose()
             dfGOLD=pd.concat([dfGOLD,tmpGOLD])
 
         for currency in currencySET:
             jsonNBP=json.loads(get_data_range_of_currency(currency, start, end))
-            #df=pd.DataFrame(data(jsonNBP, columns=['code'])
-            #dfa=pd.read_json(get_data_range_of_currency(currency,start,end))
-            #dfa=pd.read_json(get_rates_of_currency(currency,arates_number),orient='records')
             print("dekodowanie", start, end,currency)
             Rrates=((jsonNBP['rates']))
-            #print(type(Rrates))
-            #print(Rrates[iDex])
-            #print(dfCurrency.describe())
 
             for RatesDict in Rrates:
                 dRatesDict=dict(RatesDict)
@@ -80,24 +73,11 @@ if __name__ == '__main__':
                 tmpdf['code']=currency
                 dfCurrency= pd.concat([dfCurrency, tmpdf])
 
-        #print(tmpdf)
-        #print(cDate,currency, cRate)
-        # print(tmpdf)
-        #print(dfCurrency)
-        #print(type(dfCurrency))
-
 
     print("done")
-    print(dfCurrency.head(5))
-    print(dfCurrency.describe())
-    print("------")
-    print(dfCurrency['mid'].dtypes)
-    print(dfCurrency)
-    print(dfGOLD)
-    # print(dfa.columns)
-    # print(dfa.code)
-    # print(dfa.rates)
-    # print(type(dfa.code))
-    #dfa.describe()
-    #print("Head")
-    #dfa.head()
+    # print(dfCurrency.head(5))
+    # print(dfCurrency.describe())
+    # print("------")
+    # print(dfCurrency['mid'].dtypes)
+    # print(dfCurrency)
+    # print(dfGOLD)
