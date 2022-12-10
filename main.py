@@ -57,7 +57,6 @@ if __name__ == '__main__':
             tmpGOLD=pd.DataFrame.from_dict(dictGOLD,orient='index')
             tmpGOLD=tmpGOLD.transpose()
             dfGOLD=pd.concat([dfGOLD,tmpGOLD])
-
     for currency in currencySET:
         for start, end in DataSET:
             jsonNBP=json.loads(get_data_range_of_currency(currency, start, end))
