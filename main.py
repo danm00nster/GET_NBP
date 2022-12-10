@@ -58,7 +58,8 @@ if __name__ == '__main__':
             tmpGOLD=tmpGOLD.transpose()
             dfGOLD=pd.concat([dfGOLD,tmpGOLD])
 
-        for currency in currencySET:
+    for currency in currencySET:
+        for start, end in DataSET:
             jsonNBP=json.loads(get_data_range_of_currency(currency, start, end))
             print("dekodowanie", start, end,currency)
             Rrates=((jsonNBP['rates']))
@@ -73,7 +74,8 @@ if __name__ == '__main__':
                 tmpdf['code']=currency
                 dfCurrency= pd.concat([dfCurrency, tmpdf])
 
-
+    dfGOLD.to_csv("gold.scv")
+    dfCurrency.to_csv("currency.csv")
     print("done")
     # print(dfCurrency.head(5))
     # print(dfCurrency.describe())
