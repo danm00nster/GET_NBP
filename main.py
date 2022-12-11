@@ -47,8 +47,6 @@ if __name__ == '__main__':
              ['2021-01-01','2021-12-31'],
              ['2022-01-01','2022-12-05']]
     print(DataSET)
-    arates_number = 3
-
     for start, end in DataSET:
         print('dekodowanie' , start, end, 'GOLD')
         jsonGOLD=json.loads(get_data_range_of_GOLD(start, end))
@@ -65,8 +63,6 @@ if __name__ == '__main__':
 
             for RatesDict in Rrates:
                 dRatesDict=dict(RatesDict)
-                # cDate=dRatesDict['effectiveDate']
-                # cRate=RatesDict['mid']
                 tmpdf=pd.DataFrame.from_dict(dRatesDict, orient='index')
                 tmpdf=tmpdf.transpose()
                 tmpdf['mid']=tmpdf['mid'].astype(float)
