@@ -2,6 +2,7 @@ import requests
 import json
 from requests.exceptions import HTTPError
 import pandas as pd
+import sqlalchemy
 def get_data_range_of_currency(currency, start_date,end_date):
     try:
         url= f'http://api.nbp.pl/api/' \
@@ -69,9 +70,18 @@ if __name__ == '__main__':
                 tmpdf['code']=currency
                 dfCurrency= pd.concat([dfCurrency, tmpdf])
 
-    dfGOLD.to_csv("gold.scv", encoding="utf-8")
+    dfGOLD=dfGOLD[['data','cena']]
+    print(dfGOLD)
+    dfGOLD.to_csv("gold.csv", encoding="utf-8")
     dfCurrency.to_csv("currency.csv", encoding="utf-8")
     print("done")
+    # działa połączenie do bazy
+    engine=sqlalchemy.create_engine('mssql+pymssql://adminuser:TjmnhdMySQL1!@pwserver2.database.windows.net:'
+                                    '1433/PWdatabase')
+    # działa - zapis do bazy
+    dfGOLD.to_sql('Currency', index=False, if_exists='append', con=engine)
+
+
     # print(dfCurrency.head(5))
     # print(dfCurrency.describe())
     # print("------")
