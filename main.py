@@ -69,8 +69,8 @@ if __name__ == '__main__':
                 tmpdf['code']=currency
                 dfCurrency= pd.concat([dfCurrency, tmpdf])
 
-    dfGOLD.to_csv("gold.scv")
-    dfCurrency.to_csv("currency.csv")
+    dfGOLD.to_csv("gold.scv", encoding="utf-8")
+    dfCurrency.to_csv("currency.csv", encoding="utf-8")
     print("done")
     # print(dfCurrency.head(5))
     # print(dfCurrency.describe())
