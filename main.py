@@ -46,7 +46,7 @@ if __name__ == '__main__':
              ['2019-01-01','2019-12-31'],
              ['2020-01-01','2020-12-31'],
              ['2021-01-01','2021-12-31'],
-             ['2022-01-01','2022-12-05']]
+             ['2022-01-01','2022-12-12']]
     print(DataSET)
     for start, end in DataSET:
         print('dekodowanie' , start, end, 'GOLD')
@@ -79,8 +79,8 @@ if __name__ == '__main__':
     engine=sqlalchemy.create_engine('mssql+pymssql://adminuser:TjmnhdMySQL1!@pwserver2.database.windows.net:'
                                     '1433/PWdatabase')
     # działa - zapis do bazy
-    dfGOLD.to_sql('Currency', index=False, if_exists='append', con=engine)
-
+    dfGOLD.to_sql('GOLD', index=False, if_exists='append', con=engine)
+    dfCurrency.to_sql('Currency', index=False, if_exists='append', con=engine)
 
     # print(dfCurrency.head(5))
     # print(dfCurrency.describe())
